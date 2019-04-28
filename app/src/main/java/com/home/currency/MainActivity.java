@@ -7,8 +7,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 public class MainActivity extends AppCompatActivity {
 
     private static float rate = 30.9f;
@@ -32,21 +30,23 @@ public class MainActivity extends AppCompatActivity {
 
     public void go(View view) {
         String str_ntd = et_ntd.getText().toString();
+        String title;
         String message;
 
         if (str_ntd.isEmpty()) {
-            message = "Please enter your NTD amount";
-        }
-        else {
+            title = getString(R.string.problem);
+            message = getString(R.string.please_enter_ntd);
+        } else {
             float f_us = Float.parseFloat(str_ntd) / rate;
-            message = "USD is " + f_us;
-            us.setText(message);
+            title = getString(R.string.result);
+            message = getString(R.string.usd_is) + f_us;
+            us.setText(Float.toString(f_us));
         }
 
         new AlertDialog.Builder(this)
-                .setTitle("Warning")
+                .setTitle(title)
                 .setMessage(message)
-                .setPositiveButton("OK", null)
+                .setPositiveButton(R.string.ok, null)
                 .show();
     }
 }
